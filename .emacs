@@ -3,39 +3,6 @@
 
 (defconst home (file-name-directory load-file-name))
 
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(ac-auto-show-menu 0.1)
- '(ac-auto-start 1)
- '(ac-use-menu-map t)
- '(auto-save-default nil)
- '(column-number-mode t)
- '(echo-keystrokes 0.01)
- '(flymake-no-changes-timeout 2)
- '(global-auto-complete-mode t)
- '(global-linum-mode t)
- '(help-window-select t)
- '(ido-auto-merge-delay-time 1.5)
- '(ido-mode (quote both) nil (ido))
- '(inhibit-startup-screen t)
- '(make-backup-files nil)
- '(menu-bar-mode nil)
- '(scroll-conservatively 1)
- '(scroll-margin 3)
- '(scroll-preserve-screen-position 1)
-;; '(semantic-mode t)
- '(size-indication-mode t))
-
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
-
 (progn
   (add-to-list 'load-path (concat home ""))
   (add-to-list 'load-path (concat home "auto-complete"))
@@ -98,3 +65,37 @@
 	    (lambda ()
 	      (define-key ibuffer-mode-map (kbd "C-x C-f") 'ido-find-file)))
   )
+
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(ac-auto-show-menu 0.1)
+ '(ac-auto-start 1)
+ '(ac-candidate-menu-min 0)
+ '(ac-use-menu-map t)
+ '(auto-save-default nil)
+ '(column-number-mode t)
+ '(echo-keystrokes 0.01)
+ '(flymake-no-changes-timeout 2)
+ '(global-auto-complete-mode t)
+ '(global-linum-mode t)
+ '(help-window-select t)
+ '(ido-auto-merge-delay-time 1.5)
+ '(ido-mode (quote both) nil (ido))
+ '(inhibit-startup-screen t)
+ '(make-backup-files nil)
+ '(menu-bar-mode nil)
+ '(scroll-conservatively 1)
+ '(scroll-margin 3)
+ '(scroll-preserve-screen-position 1)
+ '(size-indication-mode t)
+ '(yas-global-mode t nil (yasnippet)))
+
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
