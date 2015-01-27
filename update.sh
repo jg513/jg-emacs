@@ -66,12 +66,19 @@ fi
 cd $yasnippet_dir
 git_clone $snippets_dir $snippets_repo
 
+# fetch for sr-speedbar
+sr_speedbar_dir="sr-speedbar"
+sr_speedbar_repo="https://github.com/emacsmirror/sr-speedbar.git"
+
+git_clone $sr_speedbar_dir $sr_speedbar_repo
+
 # keep this at last
 cat << END > .gitignore
 $auto_complete_dir/
 $distel_dir/
 $popup_dir/
 $yasnippet_dir/
+$sr_speedbar_dir/
 END
 echo "done."
 

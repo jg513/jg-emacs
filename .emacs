@@ -6,36 +6,28 @@
 (progn
   (add-to-list 'load-path (concat home ""))
   (add-to-list 'load-path (concat home "auto-complete"))
-  ;; (add-to-list 'load-path (concat home "distel/elisp"))
   (add-to-list 'load-path (concat home "erlang"))
   (add-to-list 'load-path (concat home "popup"))
-;;  (add-to-list 'load-path (concat home "semantic"))
-  ;;  (add-to-list 'load-path (concat home "semantic/bovine"))
+  (add-to-list 'load-path (concat home "sr-speedbar"))
   (add-to-list 'load-path (concat home "yasnippet"))
   )
 
 (progn
   (require 'auto-complete-config)
-  ;; (require 'distel)
   (require 'erlang-flymake)
   (require 'erlang-start)
   (require 'gtags)
   (require 'libmisc)
   (require 'popup)
-;;  (require 'semantic)
+  (require 'sr-speedbar)
   (require 'yasnippet)
   )
 
 (progn
-  ;; (distel-setup)
-  ;; (semantic-mode)
-  )
-
-(progn
   (fset 'yes-or-no-p 'y-or-n-p)
-  
+
   (add-to-list 'ac-dictionary-directories
-	       "/home/jg/jg-emacs/auto-complete/dict")
+			   "/home/jg/jg-emacs/auto-complete/dict")
   (ac-config-default)
   (add-to-list 'ac-modes 'erlang-mode)
   )
@@ -45,25 +37,23 @@
   (add-to-list 'exec-path "/usr/local/erlang/lib/erlang/bin")
   )
 
-;; (setq erl-nodename-cache
-;;       (make-symbol
-;;        (concat "emacs@"
-;; 	       (car (split-string (shell-command-to-string "hostname"))))))
-
-;; (setq inferior-erlang-machine-options '("-name" "emacs"))
-
 (progn
+  (global-set-key (kbd "C-;") 'comment-dwim)
   (global-set-key (kbd "C-h c") 'customize)
   (global-set-key (kbd "C-x C-b") 'ibuffer)
   (global-set-key (kbd "C-x k") 'kill-this-buffer)
   (global-set-key (kbd "C-x w") 'kill-buffer-and-window)
-  (global-set-key (kbd "C-;") 'comment-dwim)
   (global-set-key (kbd "M-;") 'comment-dwim)
+  (global-set-key (kbd "TAB") 'self-insert-command)
   (global-set-key [f9] 'switch-recent-buffer)
 
   (add-hook 'ibuffer-mode-hook
-	    (lambda ()
-	      (define-key ibuffer-mode-map (kbd "C-x C-f") 'ido-find-file)))
+			(lambda ()
+			  (define-key ibuffer-mode-map (kbd "C-x C-f") 'ido-find-file)))
+
+  (add-hook 'yas-minor-mode-hook
+			(lambda ()
+			  (define-key snippet-mode-map (kbd "TAB") 'self-insert-command)))
   )
 
 (custom-set-variables
@@ -76,6 +66,15 @@
  '(ac-candidate-menu-min 0)
  '(ac-use-menu-map t)
  '(auto-save-default nil)
+ '(before-save-hook (quote (delete-trailing-whitespace)))
+ '(c-basic-offset 4)
+ '(c-default-style
+   (quote
+	((c-mode . "K&R")
+	 (java-mode . "java")
+	 (awk-mode . "awk")
+	 (other . "gnu"))))
+ '(c-tab-always-indent (quote other))
  '(column-number-mode t)
  '(echo-keystrokes 0.01)
  '(flymake-no-changes-timeout 2)
@@ -91,6 +90,8 @@
  '(scroll-margin 3)
  '(scroll-preserve-screen-position 1)
  '(size-indication-mode t)
+ '(tab-always-indent nil)
+ '(tab-width 4)
  '(yas-global-mode t nil (yasnippet)))
 
 (custom-set-faces
