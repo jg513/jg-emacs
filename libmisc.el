@@ -52,4 +52,17 @@ You can configure `comment-style' to change the way regions are commented."
                 (insert (comment-padleft comment-end add)))
               (indent-according-to-mode))))))))
 
+(defun indent-dwim ()
+  "indent do what i mean."
+  (interactive)
+  (save-excursion
+	(if mark-active
+		(indent-region (region-beginning)
+					   (region-end))
+	  (let ((beg (progn (beginning-of-defun)
+						(point)))
+			(end (progn (end-of-defun)
+						(point))))
+		(indent-region beg end)))))
+
 (provide 'libmisc)

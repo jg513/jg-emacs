@@ -15,13 +15,13 @@ else
 fi
 
 git_clone() {
-    echo "update '$1'"
+    echo "update '$1'."
     if [ -d $1 ]; then
 	content=`ls $1`
 	if [ "$content" = "" ]; then
 	    rm -rf $1
 	    git clone $2 $1
-	else	
+	else
 	    cd $1
 	    git pull
 	fi
@@ -59,7 +59,6 @@ git_clone $yasnippet_dir $yasnippet_repo
 snippets_dir="snippets"
 snippets_repo="https://github.com/AndreaCrotti/yasnippet-snippets.git"
 
-echo "update '$yasnippet_dir/snippets'"
 if [ ! -d $yasnippet_dir ]; then
     mkdir $yasnippet_dir
 fi
@@ -72,13 +71,20 @@ sr_speedbar_repo="https://github.com/emacsmirror/sr-speedbar.git"
 
 git_clone $sr_speedbar_dir $sr_speedbar_repo
 
-# keep this at last
+# fetch for switch-window
+switch_window_dir="switch-window"
+switch_window_repo="https://github.com/dimitri/switch-window.git"
+
+git_clone $switch_window_dir $switch_window_repo
+
+# add .gitignore, keep this at last
+echo "generate '.gitignore'."
 cat << END > .gitignore
 $auto_complete_dir/
 $distel_dir/
 $popup_dir/
 $yasnippet_dir/
 $sr_speedbar_dir/
+$switch_window_dir/
 END
 echo "done."
-

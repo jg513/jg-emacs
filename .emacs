@@ -9,6 +9,7 @@
   (add-to-list 'load-path (concat home "erlang"))
   (add-to-list 'load-path (concat home "popup"))
   (add-to-list 'load-path (concat home "sr-speedbar"))
+  (add-to-list 'load-path (concat home "switch-window"))
   (add-to-list 'load-path (concat home "yasnippet"))
   )
 
@@ -20,6 +21,7 @@
   (require 'libmisc)
   (require 'popup)
   (require 'sr-speedbar)
+  (require 'switch-window)
   (require 'yasnippet)
   )
 
@@ -40,16 +42,23 @@
 (progn
   (global-set-key (kbd "C-;") 'comment-dwim)
   (global-set-key (kbd "C-h c") 'customize)
+  (global-set-key (kbd "C-i") 'indent-dwim)
   (global-set-key (kbd "C-x C-b") 'ibuffer)
   (global-set-key (kbd "C-x k") 'kill-this-buffer)
+  (global-set-key (kbd "C-x o") 'switch-window)
   (global-set-key (kbd "C-x w") 'kill-buffer-and-window)
   (global-set-key (kbd "M-;") 'comment-dwim)
   (global-set-key (kbd "TAB") 'self-insert-command)
+  (global-set-key [f8] 'switch-window)
   (global-set-key [f9] 'switch-recent-buffer)
 
   (add-hook 'ibuffer-mode-hook
 			(lambda ()
 			  (define-key ibuffer-mode-map (kbd "C-x C-f") 'ido-find-file)))
+
+  (add-hook 'yas-minor-mode-hook
+			(lambda ()
+			  (define-key snippet-mode-map (kbd "TAB") 'self-insert-command)))
 
   (add-hook 'yas-minor-mode-hook
 			(lambda ()
