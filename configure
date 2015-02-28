@@ -59,10 +59,6 @@ git_clone $yasnippet_dir $yasnippet_repo
 snippets_dir="snippets"
 snippets_repo="https://github.com/AndreaCrotti/yasnippet-snippets.git"
 
-if [ ! -d $yasnippet_dir ]; then
-    mkdir $yasnippet_dir
-fi
-cd $yasnippet_dir
 git_clone $snippets_dir $snippets_repo
 
 # fetch for sr-speedbar
@@ -77,6 +73,18 @@ switch_window_repo="https://github.com/dimitri/switch-window.git"
 
 git_clone $switch_window_dir $switch_window_repo
 
+# fetch for browse-kill-ring
+browse_kill_ring_dir="browse-kill-ring"
+browse_kill_ring_repo="https://github.com/browse-kill-ring/browse-kill-ring.git"
+
+git_clone $browse_kill_ring_dir $browse_kill_ring_repo
+
+# fetch for autopair
+autopair_dir="autopair"
+autopair_repo="https://github.com/capitaomorte/autopair.git"
+
+git_clone $autopair_dir $autopair_repo
+
 # add .gitignore, keep this at last
 echo "generate '.gitignore'."
 cat << END > .gitignore
@@ -84,7 +92,10 @@ $auto_complete_dir/
 $distel_dir/
 $popup_dir/
 $yasnippet_dir/
+$snippets_dir/
 $sr_speedbar_dir/
 $switch_window_dir/
+$browse_kill_ring_dir/
+$autopair_dir/
 END
 echo "done."

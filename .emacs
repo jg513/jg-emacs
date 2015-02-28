@@ -6,6 +6,8 @@
 (progn
   (add-to-list 'load-path (concat home ""))
   (add-to-list 'load-path (concat home "auto-complete"))
+  (add-to-list 'load-path (concat home "autopair"))
+  (add-to-list 'load-path (concat home "browse-kill-ring"))
   (add-to-list 'load-path (concat home "erlang"))
   (add-to-list 'load-path (concat home "popup"))
   (add-to-list 'load-path (concat home "sr-speedbar"))
@@ -15,6 +17,8 @@
 
 (progn
   (require 'auto-complete-config)
+  (require 'autopair)
+  (require 'browse-kill-ring)
   (require 'erlang-flymake)
   (require 'erlang-start)
   (require 'gtags)
@@ -28,10 +32,17 @@
 (progn
   (fset 'yes-or-no-p 'y-or-n-p)
 
+  (autopair-global-mode)
+
+  (set-variable 'yas-snippet-dirs (concat home "snippets"))
+  (yas-global-mode 1)
+  ;; (yas-reload-all "no-jit")
+
   (add-to-list 'ac-dictionary-directories
 			   "/home/jg/jg-emacs/auto-complete/dict")
-  (ac-config-default)
+  ;; (ac-config-default)
   (add-to-list 'ac-modes 'erlang-mode)
+  (add-to-list 'ac-sources 'ac-source-semantic)
   )
 
 (progn
@@ -39,8 +50,20 @@
   (add-to-list 'exec-path "/usr/local/erlang/lib/erlang/bin")
   )
 
+(add-hook 'c-mode-common-hook
+		  (lambda ()
+			(semantic-mode)
+			(setq ac-sources
+				  '(ac-source-yasnippet
+					ac-source-abbrev
+					ac-source-words-in-same-mode-buffers
+					ac-source-semantic
+					))
+			))
+
 (progn
   (global-set-key (kbd "C-;") 'comment-dwim)
+  (global-set-key (kbd "C-c k") 'browse-kill-ring)
   (global-set-key (kbd "C-h c") 'customize)
   (global-set-key (kbd "C-i") 'indent-dwim)
   (global-set-key (kbd "C-x C-b") 'ibuffer)
@@ -55,14 +78,6 @@
   (add-hook 'ibuffer-mode-hook
 			(lambda ()
 			  (define-key ibuffer-mode-map (kbd "C-x C-f") 'ido-find-file)))
-
-  (add-hook 'yas-minor-mode-hook
-			(lambda ()
-			  (define-key snippet-mode-map (kbd "TAB") 'self-insert-command)))
-
-  (add-hook 'yas-minor-mode-hook
-			(lambda ()
-			  (define-key snippet-mode-map (kbd "TAB") 'self-insert-command)))
   )
 
 (custom-set-variables
@@ -75,6 +90,7 @@
  '(ac-candidate-menu-min 0)
  '(ac-use-menu-map t)
  '(auto-save-default nil)
+ '(backward-delete-char-untabify-method (quote hungry))
  '(before-save-hook (quote (delete-trailing-whitespace)))
  '(c-basic-offset 4)
  '(c-default-style
@@ -93,6 +109,8 @@
  '(ido-auto-merge-delay-time 1.5)
  '(ido-mode (quote both) nil (ido))
  '(inhibit-startup-screen t)
+ '(kill-do-not-save-duplicates t)
+ '(kill-ring-max 200)
  '(make-backup-files nil)
  '(menu-bar-mode nil)
  '(scroll-conservatively 1)
@@ -100,9 +118,7 @@
  '(scroll-preserve-screen-position 1)
  '(size-indication-mode t)
  '(tab-always-indent nil)
- '(tab-width 4)
- '(yas-global-mode t nil (yasnippet)))
-
+ '(tab-width 4))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
